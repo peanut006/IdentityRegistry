@@ -16,13 +16,17 @@
 
 package net.maritimeconnectivity.identityregistry.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 import org.springframework.web.util.UrlPathHelper;
 
 @Configuration
@@ -30,10 +34,15 @@ import org.springframework.web.util.UrlPathHelper;
 @EnableSpringDataWebSupport
 public class WebConfig extends WebMvcConfigurationSupport {
 
+    @SuppressWarnings("deprecation")
     @Override
     @Bean
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        RequestMappingHandlerMapping hm = super.requestMappingHandlerMapping();
+    public RequestMappingHandlerMapping requestMappingHandlerMapping(
+            @Qualifier("mvcContentNegotiationManager") ContentNegotiationManager contentNegotiationManager,
+            @Qualifier("mvcConversionService") FormattingConversionService conversionService,
+            @Qualifier("mvcResourceUrlProvider") ResourceUrlProvider resourceUrlProvider) {
+        RequestMappingHandlerMapping hm = super.requestMappingHandlerMapping(contentNegotiationManager,
+                conversionService, resourceUrlProvider);
         hm.setUseSuffixPatternMatch(false);
         return hm;
     }

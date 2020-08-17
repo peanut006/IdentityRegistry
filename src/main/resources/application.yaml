@@ -1,6 +1,8 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 spring:
     profiles.active: test
+    main:
+        allow-bean-definition-overriding: true
 
 # logging
 logging.level:
@@ -158,8 +160,12 @@ spring.mail:
     # Test that the mail server is available on startup.
     test-connection: false
 
-# Do not "leak" internal setup details in http X-Application-Context header
-management.server.add-application-context-header: false
+
+management:
+    # Do not "leak" internal setup details in http X-Application-Context header
+    server.add-application-context-header: false
+    # Disable LDAP health check
+    health.ldap.enabled: false
 ---
 spring:
     profiles: development
