@@ -58,7 +58,7 @@ public class DeviceController extends EntityController<Device> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/device",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("hasRole('DEVICE_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<Device> createDevice(HttpServletRequest request, @PathVariable String orgMrn, @Valid @RequestBody Device input, BindingResult bindingResult) throws McBasicRestException {
@@ -75,7 +75,7 @@ public class DeviceController extends EntityController<Device> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/device/{deviceMrn}",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<Device> getDevice(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String deviceMrn) throws McBasicRestException {
@@ -122,7 +122,7 @@ public class DeviceController extends EntityController<Device> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/devices",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public Page<Device> getOrganizationDevices(HttpServletRequest request, @PathVariable String orgMrn, Pageable pageable) throws McBasicRestException {
         return this.getOrganizationEntities(request, orgMrn, pageable);
@@ -137,7 +137,7 @@ public class DeviceController extends EntityController<Device> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/device/{deviceMrn}/certificate/issue-new",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("hasRole('DEVICE_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<CertificateBundle> newDeviceCert(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String deviceMrn) throws McBasicRestException {
         return this.newEntityCert(request, orgMrn, deviceMrn, "device");
@@ -153,7 +153,7 @@ public class DeviceController extends EntityController<Device> {
             value = "/api/org/{orgMrn}/device/{deviceMrn}/certificate/issue-new/csr",
             method = RequestMethod.POST,
             consumes = MediaType.TEXT_PLAIN_VALUE,
-            produces = {"application/pem-certificate-chain", MediaType.APPLICATION_JSON_UTF8_VALUE}
+            produces = {"application/pem-certificate-chain", MediaType.APPLICATION_JSON_VALUE}
     )
     @PreAuthorize("hasRole('DEVICE_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<String> newDeviceCertFromCsr(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String deviceMrn, @ApiParam(value = "A PEM encoded PKCS#10 CSR", required = true) @RequestBody String csr) throws McBasicRestException {
@@ -169,7 +169,7 @@ public class DeviceController extends EntityController<Device> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/device/{deviceMrn}/certificate/{certId}/revoke",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("hasRole('DEVICE_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<?> revokeDeviceCert(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String deviceMrn, @PathVariable BigInteger certId, @Valid @RequestBody CertificateRevocation input) throws McBasicRestException {
         return this.revokeEntityCert(request, orgMrn, deviceMrn, certId, input);

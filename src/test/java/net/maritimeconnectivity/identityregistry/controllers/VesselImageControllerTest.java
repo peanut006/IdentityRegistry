@@ -74,6 +74,7 @@ public class VesselImageControllerTest {
         org.setName("Danish Maritime Authority");
         org.setApproved(true);
         org.setFederationType("external-idp");
+        org.setCertificateAuthority("The Authority");
 
         orgRepo.save(org);
 

@@ -59,7 +59,7 @@ public class RoleController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/roles",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<List<Role>> getRoles(HttpServletRequest request, @PathVariable String orgMrn) throws McBasicRestException {
@@ -75,7 +75,7 @@ public class RoleController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/role",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("(hasRole('ORG_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn) and #input.roleName != 'ROLE_SITE_ADMIN') or hasRole('SITE_ADMIN')")
     public ResponseEntity<Role> createRole(HttpServletRequest request, @PathVariable String orgMrn, @Valid @RequestBody Role input, BindingResult bindingResult) throws McBasicRestException {
@@ -102,7 +102,7 @@ public class RoleController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/role/{roleId}",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<Role> getRole(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable Long roleId) throws McBasicRestException {
@@ -193,7 +193,7 @@ public class RoleController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/role/myroles",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<String>> getMyRole(@PathVariable String orgMrn) {
         List<String> roles = AccessControlUtil.getMyRoles();
@@ -209,7 +209,7 @@ public class RoleController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/role/available-roles",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<String>> getAvailableRoles(@PathVariable String orgMrn) {
         // See net.maritimecloud.identityregistry.security.MultiSecurityConfig for the role hierarchy

@@ -44,7 +44,7 @@ public class BugReportController {
     @RequestMapping(
             value = "/api/report-bug",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     public ResponseEntity<?> reportBug(HttpServletRequest request, @RequestBody BugReport report) throws McBasicRestException {
         try {

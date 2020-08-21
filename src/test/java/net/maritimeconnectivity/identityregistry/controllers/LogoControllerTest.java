@@ -89,6 +89,7 @@ public class LogoControllerTest {
         org.setName("Danish Maritime Authority");
         org.setApproved(true);
         org.setFederationType("external-idp");
+        org.setCertificateAuthority("The Authority");
         Logo logo = new Logo();
         logo.setImage(new byte[]{1, 2, 3});
         org.setLogo(logo);

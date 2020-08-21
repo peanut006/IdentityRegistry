@@ -65,7 +65,7 @@ public class VesselController extends EntityController<Vessel> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/vessel",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("hasRole('VESSEL_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<Vessel> createVessel(HttpServletRequest request, @PathVariable String orgMrn, @Valid @RequestBody Vessel input, BindingResult bindingResult) throws McBasicRestException {
@@ -82,7 +82,7 @@ public class VesselController extends EntityController<Vessel> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/vessel/{vesselMrn}",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<Vessel> getVessel(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String vesselMrn) throws McBasicRestException {
@@ -114,7 +114,7 @@ public class VesselController extends EntityController<Vessel> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/vessel/{vesselMrn}/services",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8"
+            produces = "application/json"
     )
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
@@ -151,7 +151,7 @@ public class VesselController extends EntityController<Vessel> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/vessels",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public Page<Vessel> getOrganizationVessels(HttpServletRequest request, @PathVariable String orgMrn, Pageable pageable) throws McBasicRestException {
         return this.getOrganizationEntities(request, orgMrn, pageable);
@@ -166,7 +166,7 @@ public class VesselController extends EntityController<Vessel> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/vessel/{vesselMrn}/certificate/issue-new",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("hasRole('VESSEL_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<CertificateBundle> newVesselCert(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String vesselMrn) throws McBasicRestException {
         return this.newEntityCert(request, orgMrn, vesselMrn, "vessel");
@@ -182,7 +182,7 @@ public class VesselController extends EntityController<Vessel> {
             value = "/api/org/{orgMrn}/vessel/{vesselMrn}/certificate/issue-new/csr",
             method = RequestMethod.POST,
             consumes = MediaType.TEXT_PLAIN_VALUE,
-            produces = {"application/pem-certificate-chain", MediaType.APPLICATION_JSON_UTF8_VALUE}
+            produces = {"application/pem-certificate-chain", MediaType.APPLICATION_JSON_VALUE}
     )
     @PreAuthorize("hasRole('VESSEL_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<String> newVesselCertFromCsr(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String vesselMrn, @ApiParam(value = "A PEM encoded PKCS#10 CSR", required = true) @RequestBody String csr) throws McBasicRestException {
@@ -198,7 +198,7 @@ public class VesselController extends EntityController<Vessel> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/vessel/{vesselMrn}/certificate/{certId}/revoke",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("hasRole('VESSEL_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<?> revokeVesselCert(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String vesselMrn, @PathVariable BigInteger certId, @Valid @RequestBody CertificateRevocation input) throws McBasicRestException {
         return this.revokeEntityCert(request, orgMrn, vesselMrn, certId, input);

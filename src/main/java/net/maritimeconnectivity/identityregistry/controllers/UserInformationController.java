@@ -75,7 +75,7 @@ public class UserInformationController {
     @RequestMapping(
             value = "/{userMrn}/roles",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8"
+            produces = "application/json"
     )
     public ResponseEntity<List<String>> getUserRoles(HttpServletRequest request, @PathVariable String userMrn) throws McBasicRestException {
         if (!AccessControlUtil.isUserSync(this.userSyncMRN, this.userSyncO, this.userSyncOU, this.userSyncC)) {
@@ -97,7 +97,7 @@ public class UserInformationController {
     @RequestMapping(
             value = "/{userMrn}/acting-on-behalf-of",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8"
+            produces = "application/json"
     )
     public ResponseEntity<List<String>> getOrgsToActOnBehalfOf(HttpServletRequest request, @PathVariable String userMrn) throws McBasicRestException {
         if (!AccessControlUtil.isUserSync(this.userSyncMRN, this.userSyncO, this.userSyncOU, this.userSyncC)) {

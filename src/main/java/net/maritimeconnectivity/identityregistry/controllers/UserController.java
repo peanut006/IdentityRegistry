@@ -96,7 +96,7 @@ public class UserController extends EntityController<User> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/user",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("hasRole('USER_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<User> createUser(HttpServletRequest request, @PathVariable String orgMrn, @Valid @RequestBody User input, BindingResult bindingResult) throws McBasicRestException {
@@ -160,7 +160,7 @@ public class UserController extends EntityController<User> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/user/{userMrn}",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<User> getUser(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String userMrn) throws McBasicRestException {
@@ -259,7 +259,7 @@ public class UserController extends EntityController<User> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/users",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
     public Page<User> getOrganizationUsers(HttpServletRequest request, @PathVariable String orgMrn, Pageable pageable) throws McBasicRestException {
         return this.getOrganizationEntities(request, orgMrn, pageable);
@@ -274,7 +274,7 @@ public class UserController extends EntityController<User> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/user/{userMrn}/certificate/issue-new",
             method = RequestMethod.GET,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("hasRole('USER_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<CertificateBundle> newUserCert(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String userMrn) throws McBasicRestException {
         return this.newEntityCert(request, orgMrn, userMrn, "user");
@@ -290,7 +290,7 @@ public class UserController extends EntityController<User> {
             value = "/api/org/{orgMrn}/user/{userMrn}/certificate/issue-new/csr",
             method = RequestMethod.POST,
             consumes = MediaType.TEXT_PLAIN_VALUE,
-            produces = {"application/pem-certificate-chain", MediaType.APPLICATION_JSON_UTF8_VALUE}
+            produces = {"application/pem-certificate-chain", MediaType.APPLICATION_JSON_VALUE}
     )
     @PreAuthorize("(hasRole('USER_ADMIN') or @accessControlUtil.isUser(#userMrn)) and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<String> newUserCertFromCsr(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String userMrn, @ApiParam(value = "A PEM encoded PKCS#10 CSR", required = true) @RequestBody String csr) throws McBasicRestException {
@@ -306,7 +306,7 @@ public class UserController extends EntityController<User> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/user/{userMrn}/certificate/{certId}/revoke",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @PreAuthorize("hasRole('USER_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
     public ResponseEntity<?> revokeUserCert(HttpServletRequest request, @PathVariable String orgMrn, @PathVariable String userMrn, @PathVariable BigInteger certId, @Valid @RequestBody CertificateRevocation input) throws McBasicRestException {
         return this.revokeEntityCert(request, orgMrn, userMrn, certId, input);
@@ -323,7 +323,7 @@ public class UserController extends EntityController<User> {
     @RequestMapping(
             value = "/api/org/{orgMrn}/user-sync/",
             method = RequestMethod.POST,
-            produces = "application/json;charset=UTF-8")
+            produces = "application/json")
     @ResponseBody
     public ResponseEntity<?> syncUser(HttpServletRequest request, @PathVariable String orgMrn, @RequestBody User input,
                                       @RequestParam(value = "org-name", required = false) String orgName,

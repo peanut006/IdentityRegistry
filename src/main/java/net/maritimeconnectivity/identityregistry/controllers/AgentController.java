@@ -60,7 +60,7 @@ public class AgentController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/agents",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
@@ -82,7 +82,7 @@ public class AgentController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/acting-on-behalf-of",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
@@ -104,7 +104,7 @@ public class AgentController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/agent/{agentId}",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
     @PreAuthorize("@accessControlUtil.hasAccessToOrg(#orgMrn)")
@@ -132,7 +132,7 @@ public class AgentController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/agent",
             method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
     @PreAuthorize("hasRole('ORG_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
@@ -157,7 +157,7 @@ public class AgentController {
     @RequestMapping(
             value = "/api/org/{orgMrn}/agent/{agentId}",
             method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
     @PreAuthorize("hasRole('ORG_ADMIN') and @accessControlUtil.hasAccessToOrg(#orgMrn)")
